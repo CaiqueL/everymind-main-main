@@ -3,13 +3,14 @@ import "./styles.css"; // Import CSS file
 import { Outlet } from "react-router-dom";
 import { Link } from "react-router-dom";
 
+
 const Candidato = () => {
   return (
     <>
       <div>
         <Outlet />
       </div>
-      <div className="flex bg-teal-500 justify-between items-center p100 mb-10 ">
+      <div className="menu">
         <div className="flex m-20 items-center ">
           <img
             className="mr-10 rounded-full"
@@ -28,31 +29,31 @@ const Candidato = () => {
           {/* Outros botões aqui, sem margem à esquerda */}
         </div>
 
-        <button className="buttonFirst">
-          <Link to="/Candidato/VagasUsuario" style={{ color: "#ffffff " }}>
+        <button className="menu-item">
+          <Link to="/Candidato/VagasUsuario"  style={{ color: "#ffffff " }}>
             Minhas Vagas
           </Link>
         </button>
 
-        <button className="buttonFirst">
+        <button className="menu-item">
           <Link to="/Candidato/VagasDisponiveis" style={{ color: "#ffffff " }}>
             Vagas Disponíveis
           </Link>
         </button>
 
-        <button className="buttonFirst">
+        <button className="menu-item">
           <Link to="/Candidato/TestesUsuario" style={{ color: "#ffffff " }}>
             Testes
           </Link>
         </button>
 
-        <button className="buttonFirst">
+        <button className="menu-item">
           <Link to="/Candidato/Entrevistas" style={{ color: "#ffffff " }}>
             Entrevistas
           </Link>
         </button>
 
-        <button className="buttonFirst">
+        <button className="menu-item">
           <Link to="/Candidato/Feedbacks" style={{ color: "#ffffff " }}>
             Dashboard
           </Link>

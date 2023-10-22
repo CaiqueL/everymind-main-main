@@ -1,79 +1,98 @@
-import React from "react";
+import React, { useState } from "react";
+import Localbase from 'localbase';
+import "./styles.css";
 
 const RecuperarSenha = () => {
-  const containerStyle = {
-    position: "fixed",
-    left: 0,
-    top: 0,
-    height: "100%",
-    backgroundColor: "#ffff",
-    padding: "20px",
-    boxShadow: "2px 0 10px -1px rgba(0, 0, 0, 0.5)",
+  const [email, setEmail] = useState("");
+  const [senhaAntiga, setSenhaAntiga] = useState("");
+  const [novaSenha, setNovaSenha] = useState("");
+  const [mostrarFormulario, setMostrarFormulario] = useState(false);
+  const [mensagem, setMensagem] = useState("");
+
+  const handleVerificarSenha = () => {
+    // Criar uma instância do banco de dados local
+    const db = new Localbase('myDatabase');
+
+    // Realizar a pesquisa no banco de dados local
+    db.collection('usuarios')
+      .doc({ email })
+      .get()
+      .then((usuario) => {
+        if (usuario && usuario.senha === senhaAntiga) {
+          setMostrarFormulario(true);
+          setMensagem(""); // Limpe a mensagem de erro, se houver alguma.
+        } else {
+          setMensagem("Email ou senha antiga incorretos. Por favor, tente novamente.");
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+        setMensagem("Ocorreu um erro ao verificar as credenciais. Tente novamente.");
+      });
+  };
+
+  const handleAtualizarSenha = () => {
+    if (novaSenha) {
+      const db = new Localbase('myDatabase');
+      // Atualize a senha no banco de dados local
+      db.collection('usuarios')
+        .doc({ email })
+        .update({ senha: novaSenha })
+        .then(() => {
+          setMensagem("Senha atualizada com sucesso!");
+          setMostrarFormulario(false);
+        })
+        .catch((error) => {
+          console.error(error);
+          setMensagem("Ocorreu um erro ao atualizar a senha. Tente novamente.");
+        });
+    } else {
+      setMensagem("Por favor, digite uma nova senha.");
+    }
   };
 
   return (
-    <div style={containerStyle}>
-      <div
-        style={{
-          width: "100%",
-          margin: "2em 0"
-        }}
-      >
+    <div className="containerStyle">
+     
+      <h2 className="title">Recuperar a senha</h2>
+      {mensagem && <p className="mensagem">{mensagem}</p>}
+      <label className="text-base my-6">Email</label>
+      <input
+        type="text"
+        placeholder="Digite seu email"
+        className="input"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+      />
+      {mostrarFormulario ? (
         <div>
-          <img
-            src="https://c.animaapp.com/RLL3gMW3/img/image-11-1@2x.png"
-            style={{
-              width: "80%",
-              margin: "3em auto",
-              height: "100px",
-            }}
-          />{" "}
+          <label className="text-base my-6">Nova Senha</label>
+          <input
+            type="password"
+            placeholder="Digite sua nova senha"
+            className="input"
+            value={novaSenha}
+            onChange={(e) => setNovaSenha(e.target.value)}
+          />
+          <button className="button" onClick={handleAtualizarSenha}>
+            Atualizar Senha
+          </button>
         </div>
-        <div className="title">
-          <h2 className="text-lg my-4">Recuperar a senha</h2>{" "}
+      ) : (
+        <div>
+          <label className="text-base my-6">Senha Antiga</label>
+          <input
+            type="password"
+            placeholder="Digite sua senha antiga"
+            className="input"
+            value={senhaAntiga}
+            onChange={(e) => setSenhaAntiga(e.target.value)}
+          />
+          <button className="button" onClick={handleVerificarSenha}>
+            Verificar Cadastro
+          </button>
         </div>
-
-        <label className="text-base my-6">Email</label>
-        <input
-          type="text"
-          placeholder="Digite aqui seu email"
-          style={{
-            width: "90%",
-            margin: "1em 0",
-            border: "1px solid",
-            borderColor: " #d6d6d6",
-            borderRadius: "8px",
-            display: "flex",
-            gap: "8px",
-            overflow: "hidden",
-            padding: "10px",
-            position: "relative",
-            backgroundColor: "transparent",
-            color: "#212b3685",
-            outline: "none",
-          }}
-        />
-      </div>
-      <div>
-        <button
-          style={{
-            flex: 1,
-            border:
-              "1px solid var(--transparent-primary-48, rgba(0, 167, 111, 0.48))",
-            background:
-              "radial-gradient(50% 50% at 50% 50%, rgb(47, 194, 134) 0%, rgb(49, 169, 185) 100%) ",
-            backgroundColor: "unset",
-            width: "80%",
-            color: "#000000",
-            outline: "none",
-            borderRadius: "7px",
-            margin: "2em 0",
-            height: "2.5em"
-          }}
-        >
-          Recuperar
-        </button>
-      </div>
+      )}
     </div>
   );
 };

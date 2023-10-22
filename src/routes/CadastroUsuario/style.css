@@ -1,25 +1,67 @@
-
- label{
-    color: #212b36;
-    display: flex;
-    font-size: 12px;
+.containerStyle {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 2px 0 10px -1px rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
-.containerStyle{
-    position: fixed;
-    left: 0;
-    top: 0;
-    height: 100%;
-    width: 25%;
-    background-color: "#ffff";
-    padding: 20px;
-    box-shadow: 2px 0 10px -1px rgba(0, 0, 0, 0.5);
-    overflow-y: scroll;
+
+.form-group {
+  margin-bottom: 5px;
 }
 
-.containerStyle::-webkit-scroll{
-    background: #ccc;
-    width: 5px;
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #212b3685;
+}
+
+input,
+select {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #d6d6d6;
+  border-radius: 8px;
+  background-color: transparent;
+  color: #212b3685;
+  outline: none;
+}
+
+button {
+  border: none;
+  background: linear-gradient(90deg, #2FC286, #31A9B9);
+  width: 100%;
+  color: #fff;
+  outline: none;
+  border-radius: 30px;
+  margin: 10px 0;
+  padding: 10px;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+}
+
+button:hover {
+  background: linear-gradient(90deg, #31A9B9, #2FC286);
+  transform: scale(1.05);
+}
+
+.success-message {
+  color: #00a786;
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+.error-message {
+  color: #ff0000;
+  font-weight: 600;
+  margin-top: 10px;
 }

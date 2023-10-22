@@ -1,14 +1,82 @@
-.title h2 {
-    color: #212b36;
-}
-
-.inputSelect label{
-    color: #212b36;
-display: flex;
-font-size: 12px;
-}
-
-.form input{
+body {
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+  }
+  
+  .login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .form-container {
+    text-align: center;
+    width: 300px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 2px 0 10px -1px rgba(0, 0, 0, 0.5);
+  }
+  
+  .form-title {
+    font-size: 24px;
     margin-top: 10px;
-}
-
+  }
+  
+  .form-label {
+    font-size: 16px;
+  }
+  
+  .inputSelect select,
+  .password-input input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #d6d6d6;
+    border-radius: 8px;
+    background-color: transparent;
+    color: #212b3685;
+    outline: none;
+  }
+  
+  .form-actions {
+    margin-top: 20px;
+  }
+  
+  .forgot-password-link,
+  .signup-link {
+    text-decoration: none;
+    color: #6d6d6d;
+    font-weight: lighter;
+    margin-top: 10px;
+    cursor: pointer; /* Adicione cursor pointer */
+  }
+  
+  .forgot-password-link:hover,
+  .signup-link:hover {
+    text-decoration: underline;
+    color: #000; /* Altera a cor do texto para preto ao passar o mouse */
+  }
+  
+  .login-button,
+  .signup-button {
+    border: none;
+    background: linear-gradient(90deg, #2FC286, #31A9B9);
+    width: 100%;
+    color: #fff;
+    outline: none;
+    border-radius: 30px;
+    margin: 10px 0;
+    padding: 10px;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+  }
+  
+  .login-button:hover,
+  .signup-button:hover {
+    background: linear-gradient(90deg, #31A9B9, #2FC286);
+    transform: scale(1.05);
+  }
+  

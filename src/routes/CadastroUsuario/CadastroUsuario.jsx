@@ -1,214 +1,174 @@
-import React from "react";
-import "./style.css";
-import userData from '../../Data/mockData';
-import { useState } from "react";
-
+import React, { useState } from 'react';
+import Localbase from 'localbase';
+import './style.css';
+import 'font-awesome/css/font-awesome.min.css'; // Importe o CSS do FontAwesome
 
 const CadastroUsuario = () => {
-
-  const [nome, setNome] = useState("");
-  const [cpf, setCpf] = useState("");
-  const [telefone, setTelefone] = useState("");
-  const [email, setEmail] = useState("");
-  const [ocupacao, setOcupacao] = useState("");
-  const [senha, setSenha] = useState("");
+  const [nome, setNome] = useState('');
+  const [cpf, setCpf] = useState('');
+  const [telefone, setTelefone] = useState('');
+  const [email, setEmail] = useState('');
+  const [tipoAcesso, setTipoAcesso] = useState('candidato');
+  const [senha, setSenha] = useState('');
+  const [mensagem, setMensagem] = useState('');
+  const [carregando, setCarregando] = useState(false);
 
   const handleCadastro = () => {
-    const newUser = {
-      email,
-      password: senha,
-      role: ocupacao,
-    };
-    const existingData = JSON.parse(localStorage.getItem("userData")) || [];
-    const updatedData = [...existingData, newUser];
-    localStorage.setItem("userData", JSON.stringify(updatedData));
-    alert("Usuário Adicionado ! ", newUser);
+    // Validação dos campos
+    if (!nome || !telefone || !email || !senha) {
+      setMensagem('Todos os campos são obrigatórios.');
+      return;
+    }
+
+    // Validação do CPF
+    if (!cpf.match(/^\d{11}$/)) {
+      setMensagem('CPF inválido. Deve conter 11 dígitos numéricos.');
+      return;
+    }
+
+    if (tipoAcesso === 'empresa' && !email.endsWith('@everymind.com.br')) {
+      setMensagem('O email da empresa deve terminar com @everymind.com.br');
+      return;
+    }
+
+    setCarregando(true);
+
+    // Simule o carregamento por 5 segundos (você pode substituir isso pelo salvamento real no banco de dados)
+    setTimeout(() => {
+      // Salve os dados no banco de dados local
+      const db = new Localbase('myDatabase');
+      db.collection('usuarios').add({
+        nome,
+        cpf,
+        telefone,
+        email,
+        tipoAcesso,
+        senha,
+      });
+
+      // Limpe os campos após o cadastro
+      setNome('');
+      setCpf('');
+      setTelefone('');
+      setEmail('');
+      setTipoAcesso('candidato');
+      setSenha('');
+      setMensagem('Usuário cadastrado com sucesso!');
+      setCarregando(false);
+    }, 5000); // Simula um carregamento por 5 segundos
   };
 
   return (
     <div className="containerStyle">
-      <div
-        style={{
-          width: "100%",
-          top: "10px",
-        }}
-      >
-        <div>
-          <img
-            src="https://c.animaapp.com/RLL3gMW3/img/image-11-1@2x.png"
-            style={{
-              width: "80%",
-              margin: "0 auto",
-              height: "100px",
-            }}
+      <h2 className="my-6 text-lg">Cadastro de Usuário</h2>
+      {mensagem && (
+        <div className={mensagem.includes('sucesso') ? 'success-message' : 'error-message'}>
+          {mensagem}
+        </div>
+      )}
+      <div className="form-group">
+        <label htmlFor="nome" className="text-sm">
+          Nome
+        </label>
+        <input
+          type="text"
+          id="nome"
+          placeholder="Digite seu nome"
+          className="form-control"
+          value={nome}
+          onChange={(e) => setNome(e.target.value)}
+        />
+      </div>
+      <div className="form-group">
+        <label htmlFor="cpf" className="text-sm">
+          CPF
+        </label>
+        <input
+          type="number"
+          pattern="[0-9]*"
+          id="cpf"
+          placeholder="Digite seu CPF"
+          className="form-control"
+          value={cpf}
+          onChange={(e) => setCpf(e.target.value)}
+        />
+      </div>
+      <div className="form-group">
+        <label htmlFor="telefone" className="text-sm">
+          Telefone
+        </label>
+        <input
+          type="text"
+          id="telefone"
+          placeholder="Digite seu telefone"
+          className="form-control"
+          value={telefone}
+          onChange={(e) => {
+            const formattedTelefone = e.target.value.replace(/\D/g, '');
+            setTelefone(formattedTelefone);
+          }}
+        />
+      </div>
+      <div className="form-group">
+        <label htmlFor="email" className="text-sm">
+          Email
+        </label>
+        <input
+          type="text"
+          id="email"
+          placeholder="Digite seu email"
+          className="form-control"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+      </div>
+      <div className="form-group">
+        <label htmlFor="tipoAcesso" className="text-sm">
+          Tipo de Acesso
+        </label>
+        <select
+          id="tipoAcesso"
+          className="form-control"
+          value={tipoAcesso}
+          onChange={(e) => setTipoAcesso(e.target.value)}
+        >
+          <option value="candidato">Candidato</option>
+          <option value="empresa">Empresa</option>
+        </select>
+      </div>
+      {tipoAcesso === 'empresa' && (
+        <div className="form-group">
+          <label htmlFor="senha" className="text-sm">
+            Senha da Empresa
+          </label>
+          <input
+            type="password"
+            id="senha"
+            placeholder="Digite a senha da empresa"
+            className="form-control"
+            value={senha}
+            onChange={(e) => setSenha(e.target.value)}
           />
         </div>
-        <div className="my-2">
-          <h2 className="my-6 text-lg">Cadastro de Usuário</h2>
+      )}
+      {tipoAcesso === 'candidato' && (
+        <div className="form-group">
+          <label htmlFor="senha" className="text-sm">
+            Senha do Candidato
+          </label>
+          <input
+            type="password"
+            id="senha"
+            placeholder="Digite a senha do candidato"
+            className="form-control"
+            value={senha}
+            onChange={(e) => setSenha(e.target.value)}
+          />
         </div>
-        <label className="my-5 text-sm">Nome</label>
-        <input
-          type="text"
-          placeholder="Digite seu nome"
-          style={{
-            width: "90%",
-            margin: "1em 0",
-            border: "1px solid",
-            borderColor: " #d6d6d6",
-            borderRadius: "8px",
-            display: "flex",
-            gap: "8px",
-            overflow: "hidden",
-            padding: "10px",
-            position: "relative",
-            backgroundColor: "transparent",
-            color: "#212b3685",
-            outline: "none",
-          }}
-        />
-        <label className="my-5 text-sm">CPF</label>
-        <input
-          type="text"
-          placeholder="Digite seu CPF"
-          style={{
-            width: "90%",
-            margin: "1em 0",
-            border: "1px solid",
-            borderColor: " #d6d6d6",
-            borderRadius: "8px",
-            display: "flex",
-            gap: "8px",
-            overflow: "hidden",
-            padding: "10px",
-            position: "relative",
-            backgroundColor: "transparent",
-            color: "#212b3685",
-            outline: "none",
-          }}
-        />
-        <label className="my-5 text-sm">Telefone</label>
-        <input
-          type="text"
-          placeholder="Digite seu telefone"
-          style={{
-            width: "90%",
-            margin: "1em 0",
-            border: "1px solid",
-            borderColor: " #d6d6d6",
-            borderRadius: "8px",
-            display: "flex",
-            gap: "8px",
-            overflow: "hidden",
-            padding: "10px",
-            position: "relative",
-            backgroundColor: "transparent",
-            color: "#212b3685",
-            outline: "none",
-          }}
-        />
-        <label className="my-5 text-sm">Email</label>
-        <input
-          type="text"
-          placeholder="Digite seu email"
-          style={{
-            width: "90%",
-            margin: "1em 0",
-            border: "1px solid",
-            borderColor: " #d6d6d6",
-            borderRadius: "8px",
-            display: "flex",
-            gap: "8px",
-            overflow: "hidden",
-            padding: "10px",
-            position: "relative",
-            backgroundColor: "transparent",
-            color: "#212b3685",
-            outline: "none",
-          }}
-        />
-        <label className="my-5 text-sm">Ocupação</label>
-        <select
-          style={{
-            width: "90%",
-            margin: "1em 0",
-            border: "1px solid",
-            borderColor: " #d6d6d6",
-            borderRadius: "8px",
-            display: "flex",
-            gap: "8px",
-            overflow: "hidden",
-            padding: "10px",
-            position: "relative",
-            backgroundColor: "transparent",
-            color: "#212b3685",
-            outline: "none",
-          }}
-        >
-          <option value="PcD">PcD</option>
-          <option value="PovosOriginarios">Povos Originários</option>
-        </select>
-        <label className="my-5 text-sm">Sexo</label>
-        <select
-          style={{
-            width: "90%",
-            margin: "1em 0",
-            border: "1px solid",
-            borderColor: " #d6d6d6",
-            borderRadius: "8px",
-            display: "flex",
-            gap: "8px",
-            overflow: "hidden",
-            padding: "10px",
-            position: "relative",
-            backgroundColor: "transparent",
-            color: "#212b3685",
-            outline: "none",
-          }}
-        >
-          <option value="Masc">Masc</option>
-          <option value="Fem">Fem</option>
-        </select>
-        <label className="my-5 text-sm">Senha</label>
-        <input
-          type="password"
-          placeholder="Digite sua senha"
-          style={{
-            width: "90%",
-            margin: "1em 0",
-            border: "1px solid",
-            borderColor: " #d6d6d6",
-            borderRadius: "8px",
-            display: "flex",
-            gap: "8px",
-            overflow: "hidden",
-            padding: "10px",
-            position: "relative",
-            backgroundColor: "transparent",
-            color: "#212b3685",
-            outline: "none",
-          }}
-        />
-        <button
-        onClick={handleCadastro}
-          style={{
-            flex: 1,
-            width: "90%",
-            borderRadius: "7px",
-            margin: "2em 0",
-            height: "2.5em",
-            border:
-              "1px solid var(--transparent-primary-48, rgba(0, 167, 111, 0.48))",
-            background:
-              "radial-gradient(50% 50% at 50% 50%, rgb(47, 194, 134) 0%, rgb(49, 169, 185) 100%) ",
-            backgroundColor: "unset",
-
-            color: "#000000",
-            outline: "none",
-          }}
-        >
-          Cadastrar
-        </button>
-      </div>
+      )}
+      <button onClick={handleCadastro} className="btn btn-primary">
+        {carregando ? <i className="fa fa-spinner fa-spin"></i> : 'Cadastrar'}
+      </button>
     </div>
   );
 };

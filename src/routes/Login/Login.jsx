@@ -1,33 +1,33 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
-import userData from "../../Data/mockData";
-import "./style.css";
+import Localbase from 'localbase';
 import Alert from "../../components/AlertaCustom/AlertaCustom";
+import "./style.css";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [ocupacao, setOcupacao] = useState("Candidato");
-  const [showAlert, setShowAlert] = useState(false); // State to control alert visibility
-
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  };
-
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-  };
+  const [tipoAcesso, setTipoAcesso] = useState("candidato");
+  const [showAlert, setShowAlert] = useState(false);
 
   const handleLogin = () => {
-    const user = userData.find(
-      (user) => user.email === email && user.password === password
-    );
+    const db = new Localbase('myDatabase');
 
-    if (user) {
-      window.location.href = ocupacao === "Candidato" ? "/Candidato" : "/Empresa";
-    } else {
-      setShowAlert(true);
-    }
+    db.collection('usuarios')
+      .doc({ email, senha: password })
+      .get()
+      .then(user => {
+        if (user) {
+          // Verifique se o email termina com "@everymind.com.br"
+          if (email.endsWith("@everymind.com.br")) {
+            window.location.href = "/Empresa";
+          } else {
+            window.location.href = "/Candidato";
+          }
+        } else {
+          setShowAlert(true);
+        }
+      });
   };
 
   const handleAlertClose = () => {
@@ -35,192 +35,49 @@ const Login = () => {
   };
 
   return (
-    <>
-      <div
-        style={{
-          position: "fixed",
-          left: 0,
-          top: 0,
-          height: "100%",
-          width: "25%",
-          backgroundColor: "#ffff",
-          padding: "20px",
-          boxShadow: "2px 0 10px -1px rgba(0, 0, 0, 0.5)",
-        }}
-      >
-        <div
-          style={{
-            width: "100%",
-            marginBottom: "10px",
-            top: "10px",
-          }}
-        >
-          <div>
-            <img
-              src="https://c.animaapp.com/RLL3gMW3/img/image-11-1@2x.png"
-              style={{
-                width: "80%",
-                margin: "0 auto",
-                height: "100px",
-              }}
-            />
-          </div>
-
-          <div className="my-5">
-            <h2 className="text-xl">Login</h2>
-          </div>
-
-          <input
-            type="text"
-            placeholder="Digite seu email"
-            value={email}
-            onChange={handleEmailChange}
-            style={{
-              width: "90%",
-              margin: "1em 0",
-              border: "1px solid",
-              borderColor: " #d6d6d6",
-              borderRadius: "8px",
-              display: "flex",
-              gap: "8px",
-              overflow: "hidden",
-              padding: "10px",
-              position: "relative",
-              backgroundColor: "transparent",
-              color: "#212b3685",
-              outline: "none",
-            }}
+    <div className="login-container">
+      <div className="form-container">
+        <div className="logo-container">
+          <img
+            src="https://c.animaapp.com/RLL3gMW3/img/image-11-1@2x.png"
+            alt="Logo"
           />
-
-          <div className="inputSelect">
-            <label className="m-3 font-xg">Selecione sua ocupação</label>
-            <select
-              style={{
-                width: "90%",
-                margin: "1em 0",
-                border: "1px solid",
-                borderColor: " #d6d6d6",
-                borderRadius: "8px",
-                display: "flex",
-                gap: "8px",
-                overflow: "hidden",
-                padding: "10px",
-                position: "relative",
-                backgroundColor: "transparent",
-                color: "#212b3685",
-                outline: "none",
-              }}
-              onChange={(e) => setOcupacao(e.target.value)}
-            >
-              <option value="Candidato">Candidato</option>
-              <option value="Empresa">Empresa</option>
-            </select>
-          </div>
-
+        </div>
+        <h2 style={{ marginBottom: "10px" }} className="form-title">
+          Login
+        </h2>
+        <input
+          type="text"
+          placeholder="Digite seu email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <div className="password-input">
           <input
             type="password"
             placeholder="Digite sua senha"
             value={password}
-            onChange={handlePasswordChange}
-            style={{
-              width: "90%",
-              margin: "2em 0",
-              border: "1px solid",
-              borderColor: " #d6d6d6",
-              borderRadius: "8px",
-              display: "flex",
-              gap: "8px",
-              overflow: "hidden",
-              padding: "10px",
-              position: "relative",
-              backgroundColor: "transparent",
-              color: "#212b3685",
-              outline: "none",
-            }}
+            onChange={(e) => setPassword(e.target.value)}
           />
         </div>
 
-        <div style={{ marginTop: "20px" }}>
-          <button
-            style={{
-              flex: 1,
-              marginRight: "5px",
-              backgroundColor: "transparent",
-              fontSize: "12px",
-              marginBottom: "10px",
-            }}
-          >
-            <NavLink
-              to="/RecuperarSenha"
-              style={{
-                color: "#9a9a9a",
-                outline: "none",
-              }}
-            >
-              <span className="text-sm">Esqueci Minha Senha</span>
-            </NavLink>
+        <div className="form-actions">
+          <button onClick={handleLogin} className="login-button">
+            Login
           </button>
-
-          <button
-            onClick={handleLogin}
-            style={{
-              flex: 1,
-              marginRight: "5px",
-              marginBottom: "10px",
-              border:
-                "1px solid var(--transparent-primary-48, rgba(0, 167, 111, 0.48))",
-              background:
-                "radial-gradient(50% 50% at 50% 50%, rgb(47, 194, 134) 0%, rgb(49, 169, 185) 100%) ",
-              backgroundColor: "unset",
-              width: "90%",
-              outline: "none",
-              borderRadius: "7px",
-              margin: "2em 0",
-              height: "2.5em"
-            }}
-          >
-            <span>Login</span>
-          </button>
-
-          <button
-            style={{
-              flex: 1,
-              marginRight: "5px",
-              marginBottom: "10px",
-              backgroundColor: "transparent",
-              color: "#010101",
-              
-
-            }}
-          >
-            <NavLink
-              to={
-                ocupacao === "Candidato"
-                  ? "/CadastroUsuario"
-                  : "/CadastroEmpresa"
-              }
-              style={{
-                color: "#000000",
-                fontSize: "1em",
-
-
-            
-              }}
-            >
-              <span >Cadastre-se</span>
-            </NavLink>
-          </button>
+          <NavLink to="/RecuperarSenha" className="forgot-password-link">
+            Esqueci Minha Senha
+          </NavLink>
+          <br></br>
+          <NavLink to="/CadastroUsuario" className="signup-link">
+            Cadastre-se
+          </NavLink>
         </div>
       </div>
-
-     
       {showAlert && (
-        <Alert
-          message="Credenciais Inválidas"
-          onClose={handleAlertClose}
-        />
+        <Alert message="Credenciais Inválidas" onClose={handleAlertClose} />
       )}
-    </>
+    </div>
   );
 };
 

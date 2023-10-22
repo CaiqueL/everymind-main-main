@@ -7,7 +7,7 @@ const Alert = ({ message, onClose }) => {
       <div className="alert-box">
         <div className="alert-message">{message}</div>
         <button onClick={onClose} className="alert-ok-button">
-          Ok
+          Tentar Novamente
         </button>
       </div>
     </div>
