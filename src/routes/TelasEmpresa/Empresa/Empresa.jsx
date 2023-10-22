@@ -1,59 +1,38 @@
 import React from "react";
-import "./styles.css"; // Import CSS file
-import { Outlet } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
+import "./styles.css";
 
-const Empresa = () => {
+const Menu = () => {
   return (
-    <>
-      <div>
-        <Outlet />
-      </div>
-      <div className="flex bg-teal-500 justify-between items-center p100 mb-10 ">
-        <div className="flex m-20 items-center ">
-          <img
-            className="mr-10 rounded-full"
-            src="/src/assets/Avatar.png"
-            alt="Profile"
-          />
-          <div className="text-xl text-white">Matheus Costa</div>
-        </div>
-        <div className="buttonWrapper">
-          <button className="buttonFirst">
-            <Link to="/Empresa/VagasCadastradas" style={{ color: "#ffffff " }}>
-              Vagas Cadastradas
-            </Link>
-          </button>
-
-          {/* Outros botões aqui, sem margem à esquerda */}
-        </div>
-
-        <button className="buttonFirst">
-          <Link to="/Empresa/CadastrarVaga" style={{ color: "#ffffff " }}>
-                Cadastrar Vaga
+    <div>
+      <div className="menu">
+        <img
+          className="logo"
+          src="https://i.ibb.co/NsVVH5c/everymind-removebg-preview.png"
+          alt="Seu Logo"
+          style={{ width: "200px", height: "200px" }} // Defina largura e altura aqui
+        />
+        <div className="menu-items">
+          <Link to="/Empresa/VagasCadastradas" className="menu-item">
+            Vagas Cadastradas
           </Link>
-        </button>
-
-        <button className="buttonFirst">
-          <Link to="/Empresa/Dashboard" style={{ color: "#ffffff " }}>
+          <Link to="/Empresa/CadastrarVaga" className="menu-item">
+            Cadastrar Vaga
+          </Link>
+          <Link to="/Empresa/Dashboard" className="menu-item">
             Dashboard
           </Link>
-        </button>
-
-        <button className="buttonFirst">
-          <Link to="/Empresa/Entrevistas" style={{ color: "#ffffff " }}>
+          <Link to="/Empresa/Entrevistas" className="menu-item">
             Entrevistas
           </Link>
-        </button>
-
-        <button className="buttonFirst">
-          <Link to="/Empresa/Feedbacks" style={{ color: "#ffffff " }}>
+          <Link to="/Empresa/Feedbacks" className="menu-item">
             FeedBacks
           </Link>
-        </button>
+        </div>
       </div>
-    </>
+      <Outlet />
+    </div>
   );
 };
 
-export default Empresa;
+export default Menu;

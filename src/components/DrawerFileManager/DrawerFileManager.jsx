@@ -45,7 +45,7 @@ export const DrawerFileManager = ({ icon = false, image = true }) => {
             size="m"
             state="enabled"
             text="Cadastro, empresa"
-            text1="Selecione sua ocupação"
+            text1="Selecione seu tipo de login"
             valueClassName="text-field-3"
             variant="outlined"
           />

@@ -1,41 +1,44 @@
 .alert-overlay {
-    position: fixed ;
-    top: 0 ;
-    left: 0 ;
-    width: 100% ;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .alert-box {
-    background: linear-gradient(135deg, #57b3a7, #6fd1dd );; /* Override background color */
-    padding: 20px;
-    border-radius: 10px; /* Override border-radius */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Override box-shadow */
-    text-align: center;
-    font-family: Arial, sans-serif; /* Override font-family */
-    font-weight: 400; /* Override font-weight */
-    color: black; /* Override text color */
-  }
-  
-  .alert-message {
-    margin-bottom: 10px;
-  }
-  
-  .alert-ok-button {
-    padding: 12px 24px; /* Override button padding */
-    background-color: #73e473; /* Override button background color */
-    color: white; /* Override button text color */
-    border: none;
-    cursor: pointer;
-    border-radius: 10px; /* Override button border-radius */
-    font-size: 16px;
-  }
-  
-  .alert-ok-button:hover {
-    background-color: #0e0ef5; /* Override button hover background color */
-  }
-  
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.alert-box {
+  background: #fff; /* Alterado o gradiente do botão de login */
+  padding: 40px; /* Aumentando o padding para 40px */
+  border-radius: 10px; /* Alterado o border-radius para 10px */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  font-family: 'Open Sans', Helvetica, Arial, sans-serif; /* Usando a mesma fonte do botão de login */
+  font-weight: bold; /* Usando font-weight: bold */
+  color: #000000; /* Texto preto */
+}
+
+.alert-message {
+  margin-bottom: 10px;
+}
+
+.alert-ok-button {
+  border: none;
+  background: linear-gradient(90deg, #2FC286, #31A9B9); /* Usando o mesmo gradiente do botão de login */
+  width: 100%;
+  color: #fff;
+  outline: none;
+  border-radius: 30px; /* Mesmo border-radius do botão de login */
+  padding: 10px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.alert-ok-button:hover {
+  background: linear-gradient(90deg, #31A9B9, #2FC286); /* Alterando o gradiente ao passar o mouse */
+  transform: scale(1.05);
+}

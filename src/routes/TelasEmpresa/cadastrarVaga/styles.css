@@ -1,0 +1,33 @@
+/* styles.css */
+
+.vagas-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px; /* Espaçamento entre os cartões */
+}
+
+.vaga-card {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 20px;
+  width: 300px;
+  background-color: #fff;
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); /* Sombra mais evidente */
+  transition: transform 0.2s;
+}
+
+.vaga-card:hover {
+  transform: translateY(-5px); /* Eleva o cartão quando o mouse passa por cima */
+}
+
+.vaga-card h3 {
+  font-size: 1.2rem;
+  margin: 0 0 10px;
+}
+
+.vaga-card p {
+  font-size: 1rem;
+  margin: 0;
+}
+
+/* Adicione mais estilos conforme necessário para personalizar seus cartões de vaga */

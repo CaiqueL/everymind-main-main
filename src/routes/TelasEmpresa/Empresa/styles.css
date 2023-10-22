@@ -1,0 +1,39 @@
+/* Menu.css */
+.menu {
+    background-color: #5a5a5a; /* Cor de fundo do menu */
+    padding: 10px 20px; /* Espaçamento interno */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 15px;
+    margin-bottom: 40px;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  
+  .logo {
+    color: #fff; /* Cor do texto do logo */
+    font-size: 24px;
+    font-weight: 700;
+    text-decoration: none;
+  }
+  
+  .menu-items {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 0;
+    padding: 50px; /* Espaçamento na parte inferior */
+  }
+  
+  .menu-item {
+    color: #fff; /* Cor do texto dos itens do menu */
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s;
+    text-transform: uppercase;
+  }
+  
+  .menu-item:hover {
+    color: rgb(115, 255, 169); /* Cor do texto ao passar o mouse */
+  }
+  
