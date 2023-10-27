@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import "./styles.css"; // Import CSS file
 import { Outlet } from "react-router-dom";
 import { Link } from "react-router-dom";
 
-
 const Candidato = () => {
+  const [activeItem, setActiveItem] = useState(location.pathname);
+  const handleItemClick = (path) => {
+    setActiveItem(path);
+  };
   return (
     <>
       <div>
@@ -20,43 +23,60 @@ const Candidato = () => {
           <div className="text-xl text-white">Matheus Costa</div>
         </div>
         <div className="buttonWrapper">
-          <button className="buttonFirst">
-            <Link to="/Candidato/Perfil" style={{ color: "#ffffff " }}>
-              Perfil
-            </Link>
+          <button
+            className={`buttonFirst ${
+              activeItem === "/Candidato/Perfil" ? "active" : ""
+            }`}
+            onClick={() => handleItemClick("/Candidato/Perfil")}
+          >
+            <Link to="/Candidato/Perfil">Perfil</Link>
           </button>
 
           {/* Outros botões aqui, sem margem à esquerda */}
         </div>
-
-        <button className="menu-item">
-          <Link to="/Candidato/VagasUsuario"  style={{ color: "#ffffff " }}>
-            Minhas Vagas
-          </Link>
+        <button
+          className={`buttonFirst ${
+            activeItem === "/Candidato/VagasUsuario" ? "active" : ""
+          }`}
+          onClick={() => handleItemClick("/Candidato/VagasUsuario")}
+        >
+          <Link to="/Candidato/VagasUsuario">Minhas Vagas</Link>
         </button>
 
-        <button className="menu-item">
-          <Link to="/Candidato/VagasDisponiveis" style={{ color: "#ffffff " }}>
-            Vagas Disponíveis
-          </Link>
+        <button
+          className={`buttonFirst ${
+            activeItem === "/Candidato/VagasDisponiveis" ? "active" : ""
+          }`}
+          onClick={() => handleItemClick("/Candidato/VagasDisponiveis")}
+        >
+          <Link to="/Candidato/VagasDisponiveis">Vagas Disponíveis</Link>
         </button>
 
-        <button className="menu-item">
-          <Link to="/Candidato/TestesUsuario" style={{ color: "#ffffff " }}>
-            Testes
-          </Link>
+        <button
+          className={`buttonFirst ${
+            activeItem === "/Candidato/TestesUsuario" ? "active" : ""
+          }`}
+          onClick={() => handleItemClick("/Candidato/TestesUsuario")}
+        >
+          <Link to="/Candidato/TestesUsuario">Testes</Link>
         </button>
 
-        <button className="menu-item">
-          <Link to="/Candidato/Entrevistas" style={{ color: "#ffffff " }}>
-            Entrevistas
-          </Link>
+        <button
+          className={`buttonFirst ${
+            activeItem === "/Candidato/Entrevistas" ? "active" : ""
+          }`}
+          onClick={() => handleItemClick("/Candidato/Entrevistas")}
+        >
+          <Link to="/Candidato/Entrevistas">Entrevistas</Link>
         </button>
 
-        <button className="menu-item">
-          <Link to="/Candidato/Feedbacks" style={{ color: "#ffffff " }}>
-            Dashboard
-          </Link>
+        <button
+          className={`buttonFirst ${
+            activeItem === "/Candidato/Feedbacks" ? "active" : ""
+          }`}
+          onClick={() => handleItemClick("/Candidato/Feedbacks")}
+        >
+          <Link to="/Candidato/Feedbacks">Dashboard</Link>
         </button>
       </div>
     </>

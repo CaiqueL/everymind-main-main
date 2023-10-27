@@ -1,5 +1,8 @@
-/* styles.css */
-
+html, body {
+  height: 100%;
+  margin: 0;
+  overflow: auto; /* Adicione esta linha para permitir a rolagem */
+}
 .vagas-list {
   display: flex;
   flex-wrap: wrap;

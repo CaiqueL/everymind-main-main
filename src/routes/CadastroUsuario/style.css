@@ -49,6 +49,7 @@ button {
   transition: background 0.3s, transform 0.2s;
 }
 
+
 button:hover {
   background: linear-gradient(90deg, #31A9B9, #2FC286);
   transform: scale(1.05);

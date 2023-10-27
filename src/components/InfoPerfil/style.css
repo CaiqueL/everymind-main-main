@@ -1,11 +1,10 @@
 .modalInfo {
   top: 0;
   left: 0;
-  width: 960px;
+  width: auto;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 4em;
   margin-bottom: 1em;
 
 }
@@ -22,7 +21,7 @@
 .container {
   top: 0;
   left: 0;
-  width: 40%;
+  width: 5%;
   
 }
 
@@ -123,8 +122,8 @@
 }
 
 
-/* .text-field-instance {
-    margin-bottom: 10px;
+.text-field-instance {
+    margin-bottom: 5px;
     margin-right: 10px;
  }
 
@@ -137,4 +136,4 @@
 
  .drawer-file-manager .text-field-3 {
     color: #212b3685 !important; 
- } */
+ }
