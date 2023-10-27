@@ -23,10 +23,11 @@ const Entrevistas = () => {
   return (
     <div>
       <h1 className="text-left decoration-black h24 text-3xl px-10">Conta</h1>
-      <h2 className="flex space-x-4 px-10 mt-10 italic text-[#555555]">
-        Entrevistas e Feedbacks
+      <h2 className="flex space-x-4 px-10 mt-1 italic text-lg text-[#555555]">
+        Entrevistas e Feedbacks - Nesta área, você pode acompanhar o progresso
+        das entrevistas e receber feedbacks sobre suas candidaturas.
       </h2>
-      <CardEntrevistas />
+      <CardEntrevistas title="Agendado" />
     </div>
   );
 };

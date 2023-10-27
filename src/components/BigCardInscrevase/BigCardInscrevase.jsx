@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button } from "../Button";
 import "./style.css";
 
-export const BigCardInscrevase = ({ name, role }) => {
+export const BigCardInscrevase = ({ name, role, location }) => {
   const [modalVisible, setModalVisible] = useState(false);
 
   const handleButtonClick = () => {
@@ -13,10 +13,13 @@ export const BigCardInscrevase = ({ name, role }) => {
     <>
       {modalVisible && (
         <div className="modal-dialog">
-          <div className="modal-content">
-            <div>Você se registrou na vaga!</div>
-            <button onClick={() => setModalVisible(false)}>Fechar</button>
-          </div>
+          <div>Você se registrou na vaga!</div>
+          <button
+            onClick={() => setModalVisible(false)}
+            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+          >
+            Fechar
+          </button>
         </div>
       )}
       <div className="modal">
@@ -25,6 +28,7 @@ export const BigCardInscrevase = ({ name, role }) => {
             <div className="stack2">
               <div className="name-rand">{name}</div>
               <div className="role-rand">{role}</div>
+              <div className="location-rand">{location}</div>
             </div>
             <Button
               className="button-instance3"
@@ -40,9 +44,7 @@ export const BigCardInscrevase = ({ name, role }) => {
             <div className="icon-button-wrapper"></div>
           </div>
         </div>{" "}
-        
       </div>
     </>
   );
 };
-

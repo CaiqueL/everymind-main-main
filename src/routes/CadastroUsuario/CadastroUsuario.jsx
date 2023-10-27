@@ -1,33 +1,33 @@
-import React, { useState } from 'react';
-import Localbase from 'localbase';
-import './style.css';
-import 'font-awesome/css/font-awesome.min.css'; // Importe o CSS do FontAwesome
+import React, { useState } from "react";
+import Localbase from "localbase";
+import "./style.css";
+import "font-awesome/css/font-awesome.min.css"; // Importe o CSS do FontAwesome
 
 const CadastroUsuario = () => {
-  const [nome, setNome] = useState('');
-  const [cpf, setCpf] = useState('');
-  const [telefone, setTelefone] = useState('');
-  const [email, setEmail] = useState('');
-  const [tipoAcesso, setTipoAcesso] = useState('candidato');
-  const [senha, setSenha] = useState('');
-  const [mensagem, setMensagem] = useState('');
+  const [nome, setNome] = useState("");
+  const [cpf, setCpf] = useState("");
+  const [telefone, setTelefone] = useState("");
+  const [email, setEmail] = useState("");
+  const [tipoAcesso, setTipoAcesso] = useState("candidato");
+  const [senha, setSenha] = useState("");
+  const [mensagem, setMensagem] = useState("");
   const [carregando, setCarregando] = useState(false);
 
   const handleCadastro = () => {
     // Validação dos campos
     if (!nome || !telefone || !email || !senha) {
-      setMensagem('Todos os campos são obrigatórios.');
+      setMensagem("Todos os campos são obrigatórios.");
       return;
     }
 
     // Validação do CPF
     if (!cpf.match(/^\d{11}$/)) {
-      setMensagem('CPF inválido. Deve conter 11 dígitos numéricos.');
+      setMensagem("CPF inválido. Deve conter 11 dígitos numéricos.");
       return;
     }
 
-    if (tipoAcesso === 'empresa' && !email.endsWith('@everymind.com.br')) {
-      setMensagem('O email da empresa deve terminar com @everymind.com.br');
+    if (tipoAcesso === "empresa" && !email.endsWith("@everymind.com.br")) {
+      setMensagem("O email da empresa deve terminar com @everymind.com.br");
       return;
     }
 
@@ -36,8 +36,8 @@ const CadastroUsuario = () => {
     // Simule o carregamento por 5 segundos (você pode substituir isso pelo salvamento real no banco de dados)
     setTimeout(() => {
       // Salve os dados no banco de dados local
-      const db = new Localbase('myDatabase');
-      db.collection('usuarios').add({
+      const db = new Localbase("myDatabase");
+      db.collection("usuarios").add({
         nome,
         cpf,
         telefone,
@@ -47,13 +47,13 @@ const CadastroUsuario = () => {
       });
 
       // Limpe os campos após o cadastro
-      setNome('');
-      setCpf('');
-      setTelefone('');
-      setEmail('');
-      setTipoAcesso('candidato');
-      setSenha('');
-      setMensagem('Usuário cadastrado com sucesso!');
+      setNome("");
+      setCpf("");
+      setTelefone("");
+      setEmail("");
+      setTipoAcesso("candidato");
+      setSenha("");
+      setMensagem("Usuário cadastrado com sucesso!");
       setCarregando(false);
     }, 5000); // Simula um carregamento por 5 segundos
   };
@@ -62,7 +62,11 @@ const CadastroUsuario = () => {
     <div className="containerStyle">
       <h2 className="my-6 text-lg">Cadastro de Usuário</h2>
       {mensagem && (
-        <div className={mensagem.includes('sucesso') ? 'success-message' : 'error-message'}>
+        <div
+          className={
+            mensagem.includes("sucesso") ? "success-message" : "error-message"
+          }
+        >
           {mensagem}
         </div>
       )}
@@ -104,7 +108,7 @@ const CadastroUsuario = () => {
           className="form-control"
           value={telefone}
           onChange={(e) => {
-            const formattedTelefone = e.target.value.replace(/\D/g, '');
+            const formattedTelefone = e.target.value.replace(/\D/g, "");
             setTelefone(formattedTelefone);
           }}
         />
@@ -136,7 +140,7 @@ const CadastroUsuario = () => {
           <option value="empresa">Empresa</option>
         </select>
       </div>
-      {tipoAcesso === 'empresa' && (
+      {tipoAcesso === "empresa" && (
         <div className="form-group">
           <label htmlFor="senha" className="text-sm">
             Senha da Empresa
@@ -151,7 +155,7 @@ const CadastroUsuario = () => {
           />
         </div>
       )}
-      {tipoAcesso === 'candidato' && (
+      {tipoAcesso === "candidato" && (
         <div className="form-group">
           <label htmlFor="senha" className="text-sm">
             Senha do Candidato
@@ -167,7 +171,7 @@ const CadastroUsuario = () => {
         </div>
       )}
       <button onClick={handleCadastro} className="btn btn-primary">
-        {carregando ? <i className="fa fa-spinner fa-spin"></i> : 'Cadastrar'}
+        {carregando ? <i className="fa fa-spinner fa-spin"></i> : "Cadastrar"}
       </button>
     </div>
   );

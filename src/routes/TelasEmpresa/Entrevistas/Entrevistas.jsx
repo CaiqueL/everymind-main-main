@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 //import { obterCandidatos, agendarEntrevista } from '../../../Data/api';
 
 const EntrevistasEmp = () => {
   const [candidatos, setCandidatos] = useState([]);
   const [selectedCandidato, setSelectedCandidato] = useState(null);
-  const [dataEntrevista, setDataEntrevista] = useState('');
-  const [horaEntrevista, setHoraEntrevista] = useState('');
-  const [mensagem, setMensagem] = useState('');
+  const [dataEntrevista, setDataEntrevista] = useState("");
+  const [horaEntrevista, setHoraEntrevista] = useState("");
+  const [mensagem, setMensagem] = useState("");
   const [popupVisible, setPopupVisible] = useState(false);
 
   useEffect(() => {
@@ -15,7 +15,7 @@ const EntrevistasEmp = () => {
         const candidatosData = await obterCandidatos();
         setCandidatos(candidatosData);
       } catch (error) {
-        console.error('Erro ao obter candidatos:', error);
+        console.error("Erro ao obter candidatos:", error);
       }
     };
 
@@ -25,7 +25,7 @@ const EntrevistasEmp = () => {
   const handleAgendarEntrevista = async () => {
     try {
       if (!selectedCandidato || !dataEntrevista || !horaEntrevista) {
-        setMensagem('Por favor, preencha todos os campos.');
+        setMensagem("Por favor, preencha todos os campos.");
         return;
       }
 
@@ -37,30 +37,35 @@ const EntrevistasEmp = () => {
 
       await agendarEntrevista(entrevistaData);
 
-      setMensagem('Entrevista marcada com sucesso!');
+      setMensagem("Entrevista marcada com sucesso!");
       setPopupVisible(true);
 
       // Limpar os campos após agendar a entrevista
       setSelectedCandidato(null);
-      setDataEntrevista('');
-      setHoraEntrevista('');
+      setDataEntrevista("");
+      setHoraEntrevista("");
     } catch (error) {
-      console.error('Erro ao agendar entrevista:', error);
-      setMensagem('Erro ao agendar entrevista. Tente novamente.');
+      console.error("Erro ao agendar entrevista:", error);
+      setMensagem("Erro ao agendar entrevista. Tente novamente.");
     }
   };
 
   return (
     <div>
-      <h2>Agendar Entrevista</h2>
+      <h2 className="flex space-x-4 px-10 mt-1 italic text-lg text-[#555555]">
+        Nesta área, como recrutador, você pode agendar entrevistas com os
+        candidatos de forma eficiente.
+      </h2>
       {mensagem && <div>{mensagem}</div>}
       <div>
         <label>Selecione o candidato:</label>
         <select
-          value={selectedCandidato ? selectedCandidato.id : ''}
+          value={selectedCandidato ? selectedCandidato.id : ""}
           onChange={(e) => {
             const candidatoId = e.target.value;
-            const candidato = candidatos.find((c) => c.id === Number(candidatoId));
+            const candidato = candidatos.find(
+              (c) => c.id === Number(candidatoId)
+            );
             setSelectedCandidato(candidato);
           }}
         >

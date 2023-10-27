@@ -3,50 +3,48 @@ import { BigCard } from "../../../components/BigCard";
 const MinhasVagas = () => {
   const containerStyle = {
     display: "grid",
-    gridTemplateColumns: "repeat(2, 1fr)",
+    gridTemplateColumns: "repeat(3, 1fr)",
     gridGap: "20px",
     marginTop: "3em",
   };
 
-
   const cardsData = [
     {
       buttonText: "Em andamento",
-      buttonStyles: {
-        color: "#058935",
-        textColor: "white",
-        borderColor: "blue",
-      },
+      name: "Cielo",
+      role: "Junior",
+      buttonStyles: "bg-green-500 text-white border-blue-500",
     },
     {
       buttonText: "Realizar teste",
-      buttonStyles: {
-        color: "#00067c",
-        textColor: "white",
-        borderColor: "#444",
-      },
+      name: "IBM",
+      role: "Desenvolvedor",
+      buttonStyles: "bg-indigo-800 text-white border-gray-700",
     },
     {
       buttonText: "Aguardando",
-      buttonStyles: {
-        color: "red",
-        textColor: "white",
-        borderColor: "yellow",
-      },
+      name: "Google",
+      role: "Designer",
+      buttonStyles: "bg-red-500 text-white border-yellow-500",
     },
   ];
   return (
     <div>
       <h1 className="text-left decoration-black h24 text-3xl px-10">Conta</h1>
-      <h2 className="text-left text-[#555555] px-10 mt-10 italic text-[#555555]">
-        Minhas Vagas
+      <h2 className="flex space-x-4 px-10 mt-1 italic text-lg text-[#555555]">
+        Minhas Vagas - Nesta seção, você pode acompanhar todas as vagas em que
+        se candidatou. Este resumo oferece uma visão geral das oportunidades que
+        despertaram o seu interesse e o status atual de suas candidaturas.
       </h2>
       <div style={containerStyle}>
-        {cardsData.map((card, index) => (
-          <div key={index} style={{}}>
+        {cardsData.map((data, index) => (
+          <div key={index} style={{ cardsData }}>
             <BigCard
-              buttonText={card.buttonText}
-              buttonStyles={card.buttonStyles}
+              buttonText={data.buttonText}
+              buttonStyles={data.buttonStyles}
+              name={data.name}
+              role={data.role}
+              showButton={true}
             />
           </div>
         ))}

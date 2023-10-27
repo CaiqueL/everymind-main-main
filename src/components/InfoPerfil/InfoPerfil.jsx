@@ -1,21 +1,17 @@
-import React from "react";
 import "./style.css";
-import PropTypes from "prop-types";
 import { Button } from "../Button";
-import { TextField } from "../TextField";
 
 export const InfoPerfil = () => {
   return (
     <div className="modalInfo">
       <div className="container">
-        {/* Box à esquerda com uma imagem */}
-        {/* <div className="left-box">
+        <div className="left-box">
           <img
             src="/src/assets/Avatar.png"
             alt="Imagem à esquerda"
             className="left-box-image"
           />
-        </div> */}
+        </div>
       </div>
       <div className="modal-content">
         <div className="user-profile">
@@ -73,7 +69,7 @@ export const InfoPerfil = () => {
               placeholder="Sobre"
               className="outlined-input large-input"
             />
-          </div >
+          </div>
 
           <Button
             className="button-instance"
